@@ -66,10 +66,10 @@ paymentController.payment = async function (req, res) {
     }
 
     preference.notification_url = 'https://bodematias-mp-commerce-nodejs.herokuapp.com/notification'
-    
+
     let response_preference =  await mercadopago.preferences.create(preference)
-    //res.redirect(response.response.init_point)
-    res.redirect(response_preference.response.sandbox_init_point)
+    res.redirect(response.response.init_point)
+    //res.redirect(response_preference.response.sandbox_init_point)
 }
 
 module.exports = paymentController
