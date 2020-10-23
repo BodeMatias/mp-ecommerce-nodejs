@@ -90,4 +90,4 @@ app.use('/assets', express.static(__dirname + '/assets'));
 app.use(express.static('scripts'));
 app.use('/scripts', express.static(__dirname + '/scripts'));
 
-app.listen(port);
+app.listen(process.env.PORT || port);
