@@ -54,9 +54,9 @@ paymentController.payment = async function (req, res) {
     preference.payer = payer;
     preference.auto_return = 'approved'
     preference.back_urls = {
-        'success':'https://bodematias-mp-commerce-nodejs.herokuapp.com/success',
-        'pending':'https://bodematias-mp-commerce-nodejs.herokuapp.com/pending',
-        'failure':'https://bodematias-mp-commerce-nodejs.herokuapp.com/failure'
+        'success': baseURL + '/success',
+        'pending': baseURL + '/pending',
+        'failure': baseURL + '/failure'
     }
 
     preference.payment_methods = {
@@ -69,11 +69,11 @@ paymentController.payment = async function (req, res) {
         "installments": 6
     }
 
-    preference.notification_url = 'https://bodematias-mp-commerce-nodejs.herokuapp.com/notification'
+    preference.notification_url = baseURL + '/notification'
 
     let response_preference =  await mercadopago.preferences.create(preference)
-    res.redirect(response.response.init_point)
-    //res.redirect(response_preference.response.sandbox_init_point)
+    //res.redirect(response.response.init_point)
+    res.redirect(response_preference.response.sandbox_init_point)
 }
 
 module.exports = paymentController
