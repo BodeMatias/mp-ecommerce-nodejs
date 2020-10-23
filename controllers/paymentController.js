@@ -43,8 +43,8 @@ paymentController.payment = async function (req, res) {
             title: payment_data.title,
             description: payment_data.description,
             picture_url: payment_data.picture_url,
-            quantity: parseInt(payment_data.quantity),
-            unit_price: parseFloat(payment_data.unit_price)
+            quantity: Number(payment_data.quantity),
+            unit_price: Number(payment_data.unit_price)
         }
     ]
     preference.payer = payer;
