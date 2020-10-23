@@ -22,7 +22,7 @@ router.get('/failure', function (req, res) {
     res.render('failure', req.query);
 });
 
-router.get('/notification', function (req, res) {
+router.post('/notification', function (req, res) {
     console.log(req.body)
     res.sendStatus(200)
 })
