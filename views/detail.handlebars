@@ -90,14 +90,13 @@
                                     {{ unit }}
                                 </h3>
                             </div>
-                            <form id="pay-form" onsubmit="preference(event)">
+                            <form id="pay-form" action="/pay" method="POST">
                                 <input type="hidden" name="id" value="1234">
                                 <input type="hidden" name="title" value="{{title}}">
                                 <input type="hidden" name="description" value="Dispositivo móvil de Tienda e-commerce">
                                 <input type="hidden" name="picture_url" value="{{img}}">
                                 <input type="hidden" name="quantity" value="{{unit}}">
                                 <input type="hidden" name="unit_price" value="{{price}}">
-
                                 <button type="submit" class="mercadopago-button">Pagar</button>
                             </form>
                         </div>
