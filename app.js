@@ -1,9 +1,10 @@
 var express = require('express');
 var exphbs  = require('express-handlebars');
 var bodyParser = require('body-parser');
-const fetch = require("node-fetch");
 const { json } = require('body-parser');
 var mercadopago = require('mercadopago');
+var cors = require('cors')
+
 var app = express();
  
 let integrator_id = 'dev_24c65fb163bf11ea96500242ac130004'
@@ -38,6 +39,7 @@ mercadopago.configure({
     access_token: vendedor_user.access_token
 });
 
+app.options('*', cors())
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 app.use(bodyParser.json())
@@ -74,9 +76,12 @@ app.post('/pay', async function (req, res) {
     preference.payer = payer;
     preference.auto_return = 'approved'
     preference.back_urls = {
-        'success':'https://bodematias-mp-commerce-nodejs.herokuapp.com/success',
+        /*'success':'https://bodematias-mp-commerce-nodejs.herokuapp.com/success',
         'pending':'https://bodematias-mp-commerce-nodejs.herokuapp.com/pending',
-        'failure':'https://bodematias-mp-commerce-nodejs.herokuapp.com/failure'
+        'failure':'https://bodematias-mp-commerce-nodejs.herokuapp.com/failure'*/
+        'success':'https://localhost:3000/success',
+        'pending':'https://localhost:3000/pending',
+        'failure':'https://localhost:3000/failure'
     }
 
     let payment_methods = {
@@ -92,13 +97,14 @@ app.post('/pay', async function (req, res) {
     preference.payment_methods = payment_methods
 
     mercadopago.preferences.create(preference).then((data) => {
-        //console.log(data.response.payer);
-       console.log(data)
+        console.log(data)
+        res.redirect(data.body.init_point)
     }).catch((err) => {
-        console.log(err);
+        res.render('home')
     });
 
-    res.sendStatus(200)
+    
+
 })
 
 app.use(express.static('assets'));
