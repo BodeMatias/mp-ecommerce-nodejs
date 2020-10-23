@@ -76,12 +76,12 @@ app.post('/pay', async function (req, res) {
     preference.payer = payer;
     preference.auto_return = 'approved'
     preference.back_urls = {
-        /*'success':'https://bodematias-mp-commerce-nodejs.herokuapp.com/success',
+        'success':'https://bodematias-mp-commerce-nodejs.herokuapp.com/success',
         'pending':'https://bodematias-mp-commerce-nodejs.herokuapp.com/pending',
-        'failure':'https://bodematias-mp-commerce-nodejs.herokuapp.com/failure'*/
-        'success':'https://localhost:3000/success',
+        'failure':'https://bodematias-mp-commerce-nodejs.herokuapp.com/failure'
+        /*'success':'https://localhost:3000/success',
         'pending':'https://localhost:3000/pending',
-        'failure':'https://localhost:3000/failure'
+        'failure':'https://localhost:3000/failure'*/
     }
 
     let payment_methods = {
