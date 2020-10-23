@@ -72,7 +72,7 @@ paymentController.payment = async function (req, res) {
     preference.notification_url = baseURL + '/notification'
 
     let response_preference =  await mercadopago.preferences.create(preference)
-    res.redirect(response.response.init_point)
+    res.redirect(response_preference.response.init_point)
     //res.redirect(response_preference.response.sandbox_init_point)
 }
 
