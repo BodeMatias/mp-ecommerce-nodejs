@@ -32,9 +32,14 @@ mercadopago.configure({
 });
 
 paymentController.payment = async function (req, res) {
+
+    let baseURL = 'https://bodematias-mp-commerce-nodejs.herokuapp.com/'
+
     let payment_data = req.body;
     
     var preference = {}
+
+    console.log(payment_data.picture_url.split('.')[1])
 
     preference.external_reference = "bode.matias@hotmail.com";
     preference.items = [
@@ -42,7 +47,7 @@ paymentController.payment = async function (req, res) {
             id: parseInt(payment_data.id),
             title: payment_data.title,
             description: payment_data.description,
-            picture_url: payment_data.picture_url,
+            picture_url: baseURL + payment_data.picture_url,
             quantity: Number(payment_data.quantity),
             unit_price: Number(payment_data.unit_price)
         }
@@ -68,8 +73,8 @@ paymentController.payment = async function (req, res) {
     preference.notification_url = 'https://bodematias-mp-commerce-nodejs.herokuapp.com/notification'
 
     let response_preference =  await mercadopago.preferences.create(preference)
-    res.redirect(response.response.init_point)
-    //res.redirect(response_preference.response.sandbox_init_point)
+    //res.redirect(response.response.init_point)
+    res.redirect(response_preference.response.sandbox_init_point)
 }
 
 module.exports = paymentController
