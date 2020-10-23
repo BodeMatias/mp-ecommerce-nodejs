@@ -4,7 +4,6 @@ var bodyParser = require('body-parser');
 const fetch = require("node-fetch");
 const { json } = require('body-parser');
 var mercadopago = require('mercadopago');
-var port = 3000;
 var app = express();
  
 let integrator_id = 'dev_24c65fb163bf11ea96500242ac130004'
@@ -32,13 +31,15 @@ let payer = {
     }
 }
 
+
+app.set('port', process.env.PORT || 3000)
+
 mercadopago.configure({
     access_token: vendedor_user.access_token
 });
 
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
-
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -90,4 +91,4 @@ app.use('/assets', express.static(__dirname + '/assets'));
 app.use(express.static('scripts'));
 app.use('/scripts', express.static(__dirname + '/scripts'));
 
-app.listen(process.env.PORT || port);
+app.listen(app.get('port'));
