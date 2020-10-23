@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 const fetch = require("node-fetch");
 const { json } = require('body-parser');
 var mercadopago = require('mercadopago');
-
+var port = 3000;
 var app = express();
  
 let integrator_id = 'dev_24c65fb163bf11ea96500242ac130004'
@@ -90,4 +90,4 @@ app.use('/assets', express.static(__dirname + '/assets'));
 app.use(express.static('scripts'));
 app.use('/scripts', express.static(__dirname + '/scripts'));
 
-app.listen(3000);
+app.listen(port);
