@@ -58,7 +58,7 @@ paymentController.payment = async function (req, res) {
         'failure':'https://localhost:3000/failure'*/
     }
 
-    let payment_methods = {
+    preference.payment_methods = {
         'excluded_payment_methods': [
             {'id' : 'amex'}
         ],
@@ -68,11 +68,11 @@ paymentController.payment = async function (req, res) {
         "installments": 6
     }
 
-    preference.payment_methods = payment_methods
-
-    let response =  await mercadopago.preferences.create(preference)
+    preference.notification_url = 'https://bodematias-mp-commerce-nodejs.herokuapp.com/notification'
+    //preference.notification_url = 'https://localhost:3000/notification'
+    let response_preference =  await mercadopago.preferences.create(preference)
     //res.redirect(response.response.init_point)
-    res.redirect(response.response.sandbox_init_point)
+    res.redirect(response_preference.response.sandbox_init_point)
 }
 
 module.exports = paymentController
