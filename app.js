@@ -51,6 +51,19 @@ app.get('/detail', function (req, res) {
     res.render('detail', req.query);
 });
 
+app.get('/success', function (req, res) {
+    console.log(req.query)
+    res.render('success', req.query);
+});
+
+app.get('/pending', function (req, res) {
+    res.render('pending', req.query);
+});
+
+app.get('/failure', function (req, res) {
+    res.render('failure', req.query);
+});
+
 app.post('/pay', async function (req, res) {
     let payment_data = req.body;
     
@@ -59,8 +72,12 @@ app.post('/pay', async function (req, res) {
     preference.external_reference = "bode.matias@hotmail.com";
     preference.items = payment_data;
     preference.payer = payer;
-    //preference.auto_return = 'approved'
-    //preference.back_urls = {}
+    preference.auto_return = 'approved'
+    preference.back_urls = {
+        'success':'https://bodematias-mp-commerce-nodejs.herokuapp.com/success',
+        'pending':'https://bodematias-mp-commerce-nodejs.herokuapp.com/pending',
+        'failure':'https://bodematias-mp-commerce-nodejs.herokuapp.com/failure'
+    }
 
     let payment_methods = {
         'excluded_payment_methods': [
@@ -80,8 +97,6 @@ app.post('/pay', async function (req, res) {
     }).catch((err) => {
         console.log(err);
     });
-    
-    
 
     res.sendStatus(200)
 })
